@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Casa de cambio</title>
+  </head>
+  <body>
+    <h1>CASA DE CAMBIO</h1>
+    <form>
+      <label for="moneda-origen">Moneda a cambiar:</label>
+      <select name="moneda-origen" id="moneda-origen">
+        <option value="dolar">Dólar</option>
+        <option value="soles">Soles</option>
+        <option value="euros">Euros</option>
+      </select>
+      <br><br>
+      <label for="moneda-destino">Moneda a recibir:</label>
+      <select name="moneda-destino" id="moneda-destino">
+        <option value="dolar">Dólar</option>
+        <option value="soles">Soles</option>
+        <option value="euros">Euros</option>
+      </select>
+      <br><br>
+      <button type="button" onclick="calcular()">Calcular</button>
+    </form>
+
+    <script>
+      function calcular() {
+        const tasaDolar = 3.5; // Tasa de cambio del dólar a otras monedas
+        const tasaSoles = 0.9; // Tasa de cambio del sol a otras monedas
+        const tasaEuros = 4.2; // Tasa de cambio del euro a otras monedas
+
+        const monedaOrigen = document.getElementById("moneda-origen").value;
+        const monedaDestino = document.getElementById("moneda-destino").value;
+
+        let montoOrigen = parseFloat(prompt("Ingrese el monto a cambiar:"));
+        let montoDestino;
+
+        if (monedaOrigen === monedaDestino) {
+          montoDestino = montoOrigen;
+        } else if (monedaOrigen === "dolar") {
+          if (monedaDestino === "soles") {
+            montoDestino = montoOrigen * tasaSoles;
+          } else if (monedaDestino === "euros") {
+            montoDestino = montoOrigen * tasaEuros;
+          }
+        } else if (monedaOrigen === "soles") {
+          if (monedaDestino === "dolar") {
+            montoDestino = montoOrigen / tasaDolar;
+          } else if (monedaDestino === "euros") {
+            montoDestino = montoOrigen / tasaSoles * tasaEuros;
+          }
+        } else if (monedaOrigen === "euros") {
+          if (monedaDestino === "dolar") {
+            montoDestino = montoOrigen / tasaEuros * tasaDolar;
+          } else if (monedaDestino === "soles") {
+            montoDestino = montoOrigen / tasaEuros * tasaSoles;
+          }
+        }
+
+        alert(`Total a recibir: ${montoDestino.toFixed(2)} ${monedaDestino}`);
+      }
+    </script>
+  </body>
+</html>
